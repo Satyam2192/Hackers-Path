@@ -11,7 +11,7 @@ const RoadMap: React.FC = () => {
 
   const fetchModuleData = async () => {
     try {
-      const response = await fetch("http://localhost:7000/api/v1/modules");
+      const response = await fetch("https://sk-hackers-path.onrender.com/api/v1/modules");
       const data = await response.json();
       setModuleData(data || []);
     } catch (error) {
