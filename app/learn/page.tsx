@@ -5,8 +5,18 @@ import Loader from '@/app/component/Loader';
 import Navbar from '@/app/component/Navbar';
 import Footer from '@/app/component/Footer';
 
+interface Module {
+  _id: string;
+  image: string;
+  totalTasks: number;
+  title: string;
+  description: string;
+}
+
+
+
 const RoadMap: React.FC = () => {
-  const [moduleData, setModuleData] = useState([]);
+  const [moduleData, setModuleData] = useState<Module[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchModuleData = async () => {
