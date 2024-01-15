@@ -27,32 +27,26 @@ const Footer: React.FC = () => {
 
               <ul className="mt-8 space-y-1 text-sm text-gray-700">
                 <li>Monday to Friday: 10am - 5pm</li>
-                <li>Weekend: 10am - 3pm</li>
+                {/* <li>Weekend: 10am - 3pm</li> */}
               </ul>
 
               <ul className="mt-8 flex gap-6">
                 <li>
                   <a
-                    href="/"
+                    href="https://sk-p.netlify.app/"
                     rel="noreferrer"
                     target="_blank"
                     className="text-gray-700 transition hover:opacity-75"
                   >
-                    <span className="sr-only">Facebook</span>
+                    <span className="sr-only">Portfolio</span>
 
-                    <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path
-                        fill-rule="evenodd"
-                        d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
+                    <img className='h-6 w-6' src='https://sk-p.netlify.app/assets/logo-b3ed6a28.svg'></img>
                   </a>
                 </li>
 
                 <li>
                   <a
-                    href="/"
+                    href="https://www.instagram.com/satyam_2192/"
                     rel="noreferrer"
                     target="_blank"
                     className="text-gray-700 transition hover:opacity-75"
@@ -71,7 +65,7 @@ const Footer: React.FC = () => {
 
                 <li>
                   <a
-                    href="/"
+                    href="https://twitter.com/satyam21092"
                     rel="noreferrer"
                     target="_blank"
                     className="text-gray-700 transition hover:opacity-75"
@@ -88,7 +82,7 @@ const Footer: React.FC = () => {
 
                 <li>
                   <a
-                    href="/"
+                    href="https://github.com/Satyam2192"
                     rel="noreferrer"
                     target="_blank"
                     className="text-gray-700 transition hover:opacity-75"
@@ -190,7 +184,7 @@ const Footer: React.FC = () => {
               </ul>
 
               <p className="mt-8 text-xs text-gray-500 sm:mt-0">
-                &copy; 2022. Company Name. All rights reserved.
+                &copy; 2024. Hackers Path. All rights reserved.
               </p>
             </div>
           </div>
