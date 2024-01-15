@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { styles } from './style';
 import close from '../assets/close.svg';
-import menu from "../assets/menu.svg"
+import menu from '../assets/menu.svg';
 import Link from 'next/link';
 
-const logo = "Hackers Path";
+const logo = 'Hackers Path';
 
 const navLinks = [
   {
@@ -27,8 +27,18 @@ const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    let prevScrollY = window.scrollY;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 0); // Check if scrolled down
+      const currentScrollY = window.scrollY;
+
+      // Check if scrolling up, even from a non-zero position
+      if (currentScrollY < prevScrollY && currentScrollY > 0) {
+        setScrolled(true); // Make navbar visible
+      }
+
+      // Update the previous scrollY position
+      prevScrollY = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -37,11 +47,10 @@ const Navbar: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Add this new effect to handle up-scroll
     const handleUpScroll = () => {
       // Check if scrolling up, even from a non-zero position
-      if (window.scrollY < window.scrollYMax && window.scrollY > 0) { // Modified condition
-        setScrolled(true); // Make navbar visible
+      if (window.scrollY < 50) {
+        setScrolled(false); // Make navbar invisible when at the top
       }
     };
 
@@ -49,6 +58,14 @@ const Navbar: React.FC = () => {
 
     return () => window.removeEventListener('scroll', handleUpScroll);
   }, []);
+
+  const handleToggleClick = () => {
+    setToggle(!toggle);
+  };
+
+  const handleMenuClose = () => {
+    setToggle(false);
+  };
 
   return (
     <div className="mb-[100px]">
@@ -95,11 +112,18 @@ const Navbar: React.FC = () => {
 
           <div className="sm:hidden flex flex-1 justify-end items-center ">
             <img
-              src={toggle ? "https://www.svgrepo.com/show/500512/close-bold.svg" : "https://www.svgrepo.com/show/532195/menu.svg"}
+              src={toggle ? 'https://www.svgrepo.com/show/500512/close-bold.svg' : 'https://www.svgrepo.com/show/532195/menu.svg'}
               alt="menu"
               className="w-[28px] h-[28px] object-contain cursor-pointer "
-              onClick={() => setToggle(!toggle)}
+              onClick={handleToggleClick}
             />
+
+            {toggle && (
+              <div
+                className="fixed top-0 left-0 w-full h-full bg-black opacity-50"
+                onClick={handleMenuClose}
+              ></div>
+            )}
 
             <div
               className={`${
