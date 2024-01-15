@@ -1,11 +1,14 @@
+"use client"
 import React from "react";
-
-import meeting from "../../assets/meeting.jpg"
 import Link from "next/link";
+import meeting from "../../assets/meeting.jpg";
+import Navbar from "../component/Navbar";
+import Footer from "../component/Footer";
 
 export const ContactUs = () => {
   return (
     <div>
+      <Navbar />
       <div className="relative flex flex-col py-16 lg:pt-0 lg:flex-col lg:pb-0">
         <div className="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0">
           <svg
@@ -35,11 +38,10 @@ export const ContactUs = () => {
               choose a meeting time that suits you.
             </p>
             <div className="flex items-center">
-              <Link
-                to="/"
-                className="text-xl  inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-teal-400 hover:bg-pink-500 focus:shadow-outline focus:outline-none"
-              >
-                Back to Home
+              <Link href="/" passHref>
+                <div className="text-xl inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-teal-400 hover:bg-pink-500 focus:shadow-outline focus:outline-none">
+                  Back to Home
+                </div>
               </Link>
             </div>
           </div>
@@ -53,6 +55,7 @@ export const ContactUs = () => {
           frameBorder="0"
         ></iframe>
       </div>
+      <Footer />
     </div>
   );
 };
