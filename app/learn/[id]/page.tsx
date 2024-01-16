@@ -83,7 +83,8 @@ export default function Learn({ params }: {
   };
 
   useEffect(() => {
-    const closeSidebarOnClickOutside = (event) => {
+    const closeSidebarOnClickOutside = (event: MouseEvent) => {
+
       const sidebar = document.getElementById("sidebar");
       const openSidebarButton = document.getElementById("open-sidebar");
 
@@ -135,20 +136,7 @@ export default function Learn({ params }: {
               id="open-sidebar"
               onClick={toggleSidebar}
             >
-              <svg
-                className="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 6H20M4 12H20M4 18H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
             </button>
             <div
               className={`fixed bg-gray-800 text-white w-56 overflow-y-auto transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} ease-in-out duration-300`}
