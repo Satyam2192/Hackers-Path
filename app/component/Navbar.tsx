@@ -142,7 +142,7 @@ const Navbar: React.FC = () => {
                       setActive(nav.title);
                     }}
                   >
-                    <Link href={`#${nav.id}`}>
+                    <Link href={`${nav.id}`}>
                       <p>{nav.title}</p>
                     </Link>
                   </li>
