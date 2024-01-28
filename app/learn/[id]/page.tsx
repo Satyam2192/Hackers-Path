@@ -5,6 +5,7 @@ import Navbar from '@/app/component/Navbar';
 import Progress from '@/app/component/Progress';
 import React, { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
+import Image from 'next/image';
 
 export default function Learn({ params }: {
   params: { id: string }
@@ -123,7 +124,7 @@ export default function Learn({ params }: {
                 <p className="mt-5 text-lg font-semibold text-center text-gray-300 lg:text-xl">{renderHTML(moduleDetails.description)}</p>
               </div>
 
-              <img src={moduleDetails.image} className=' w-[300px]  md:w-auto h-auto mx-auto mt-5 max-w-screen-sm'></img>
+              <Image width={500} height={300} src={moduleDetails.image} className=' w-[300px]  md:w-auto h-auto mx-auto mt-5 max-w-screen-sm' alt='module details'/>
             </div>
           </div>
         </section>

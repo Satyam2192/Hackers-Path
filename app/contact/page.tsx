@@ -4,6 +4,7 @@ import Link from "next/link";
 import meeting from "../../assets/meeting.jpg";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
+import Image from "next/image";
 
 const ContactUs: React.FC = () => {
   return (
@@ -19,7 +20,9 @@ const ContactUs: React.FC = () => {
           >
             <path d="M50 0H100L50 100H0L50 0Z" />
           </svg>
-          <img
+          <Image
+            width={500}
+            height={300}
             className="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
             src={meeting.src}
             alt="Contact Us"

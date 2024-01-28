@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { styles } from './style';
-import close from '../assets/close.svg';
-import menu from '../assets/menu.svg';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const logo = 'Hackers Path';
@@ -111,7 +110,9 @@ const Navbar: React.FC = () => {
           </ul>
 
           <div className="sm:hidden flex flex-1 justify-end items-center ">
-            <img
+            <Image
+              width={25}
+              height={25}
               src={toggle ? 'https://www.svgrepo.com/show/500512/close-bold.svg' : 'https://www.svgrepo.com/show/532195/menu.svg'}
               alt="menu"
               className="w-[28px] h-[28px] object-contain cursor-pointer "
