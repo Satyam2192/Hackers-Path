@@ -58,41 +58,6 @@ const Read: React.FC = () => {
 
       {showConfetti && <Confetti width={width} height={height} />}
 
-      {/* <div className="flex mx-auto max-w-7xl">
-        {moduleData.map((module) => (
-          <div
-            key={module._id}
-            className="w-full md:w-96 h-auto mx-2 overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800"
-          >
-            <img
-              className="object-cover w-full h-64"
-              src={module.image}
-              alt="Article"
-            />
-
-            <div className="p-6">
-              <div>
-                <span className="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">
-                  Total No Task {module.totalTasks}
-                </span>
-                <Link
-                  href={"learn/" + module._id}
-                  className="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline"
-                  tabIndex={0}
-                  role="link"
-                  onClick={showConfettiHandler}
-                >
-                  {module.title}
-                </Link>
-                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                  {module.description}
-                </p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div> */}
-
       {moduleData.map((module) => (
         <div key={module._id} className="">
           <CardContainer className="inter-var">

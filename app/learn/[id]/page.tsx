@@ -125,49 +125,17 @@ export default function Learn({ params }: {
               </div>
 
               <Image width={500} height={300} src={moduleDetails.image} className=' w-[300px]  md:w-auto h-auto mx-auto mt-5 max-w-screen-sm' alt='module details'/>
+              <div className=' lg:hidden flex justify-center mt-10'>
+              <Progress completionPercent={completionPercent} /></div>
             </div>
           </div>
         </section>
 
-        {/* Sidebar for mobile */}
-        <div className="lg:hidden sticky top-0 transform -translate-y-1/10">
-          <div className="flex overflow-hidden ">
-            <button
-              className="text-gray-500 hover:text-gray-600"
-              id="open-sidebar"
-              onClick={toggleSidebar}
-            >
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 6H20M4 12H20M4 18H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-            </button>
-            <div
-              className={`fixed bg-gray-800 text-white w-56 overflow-y-auto transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} ease-in-out duration-300`}
-              id="sidebar"
-            >
-              <div className="p-4">
-                <h1 className="text-xl font-semibold">Table of Content</h1>
-                <div className="mt-4 space-y-4 lg:mt-8">
-                  {moduleDetails.data &&
-                    moduleDetails.data.map((task: any) => (
-                      <div key={task._id}>
-                        <a
-                          href={`#${task._id}`}
-                          onClick={() => toggleDropdown(task._id)}
-                          className="block text-blue-500 dark:text-blue-400 hover:underline"
-                        >
-                          {renderHTML(task.taskTitle)}
-                        </a>
-                      </div>
-                    ))}
-                  <Progress completionPercent={completionPercent} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        {/* main content */}
         <section className="bg-gray-900 text-white">
           <div className="container px-6 py-12 mx-auto">
             <div className="lg:flex lg:-ml-1 ">
+              
               <div className="hidden lg:block lg:w-1/4 lg:ml-10 md:ml-4">
                 <div className="sticky top-20">
                   <h1 className="text-xl font-semibold">Table of Content</h1>
@@ -178,7 +146,7 @@ export default function Learn({ params }: {
                           <motion.a
                             href={`#${task._id}`}
                             onClick={() => toggleDropdown(task._id)}
-                            whileHover={{ scale: 1.1 }}
+                            whileHover={{ scale: 1.02 }}
                             className="block text-blue-500 hover:underline"
                           >
                             {renderHTML(task.taskTitle)}
@@ -201,15 +169,10 @@ export default function Learn({ params }: {
                       >
                         <motion.svg
                           className={`flex-shrink-0 w-6 h-6 text-blue-500 ${expandedTasks[task._id] ? 'rotate-180' : ''}`}
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                          viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="0.144"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="#000000"></path> </g>
+                          
                         </motion.svg>
-                        <h1 className="mx-4 text-xl text-white">{renderHTML(task.taskTitle)}</h1>
+                        <h1 className="mx-4 text-xl text-white text-left">{renderHTML(task.taskTitle)}</h1>
                       </motion.button>
                       {expandedTasks[task._id] && (
                         <div>
@@ -265,38 +228,7 @@ export default function Learn({ params }: {
           </div>
         </section>
 
-        {/* Sidebar for mobile */}
-        <div className="lg:hidden">
-          <motion.div
-            className={`fixed bg-gray-800 text-white w-56 overflow-y-auto transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-              } ease-in-out duration-300`}
-            id="sidebar"
-            initial={{ x: '-100%' }}
-            animate={{ x: isSidebarOpen ? 0 : '-100%' }}
-          >
-            <div className="p-4">
-              <h1 className="text-xl font-semibold">Table of Content</h1>
-              <div className="mt-4 space-y-4 lg:mt-8">
-                {moduleDetails.data &&
-                  moduleDetails.data.map((task: any) => (
-                    <motion.div
-                      key={task._id}
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      <a
-                        href={`#${task._id}`}
-                        onClick={() => toggleDropdown(task._id)}
-                        className="block text-blue-500 dark:text-blue-400 hover:underline"
-                      >
-                        {renderHTML(task.taskTitle)}
-                      </a>
-                    </motion.div>
-                  ))}
-                <Progress completionPercent={completionPercent} />
-              </div>
-            </div>
-          </motion.div>
-        </div>
+        
       </div>
       <Footer />
     </>
