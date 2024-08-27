@@ -72,7 +72,7 @@ const Navbar: React.FC = () => {
         className={`${styles.paddingX} w-full fixed top-0 z-20 transition-all duration-500 ease-in-out
           ${scrolled ? '-translate-y-full' : ''}`}
       >
-        <div className="w-full flex justify-between items-center max-w-7xl mx-auto border-4 border-gray-400 bg-white p-4 pt-5 rounded-xl">
+        <div className="w-full flex justify-between items-center max-w-full mx-auto border-4 border-gray-400 bg-white p-4 pt-5 rounded-xl">
           <Link
             href="/"
             passHref
