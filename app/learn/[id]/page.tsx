@@ -132,7 +132,7 @@ export default function Learn({ params }: { params: { id: string } }) {
                           <a
                             href={`#${task._id}`}
                             onClick={() => toggleDropdown(task._id)}
-                            whileHover={{ scale: 1.02 }}
+                            
                             className="block text-blue-500 text-lg hover:underline"
                           >
                             {renderHTML(task.taskTitle)}
