@@ -3,8 +3,6 @@ import { styles } from './style';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const logo = 'Hackers Path';
-
 const navLinks = [
   {
     id: '/',
@@ -23,7 +21,7 @@ const navLinks = [
 const Navbar: React.FC = () => {
   const [active, setActive] = useState('');
   const [toggle, setToggle] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(true); 
 
   useEffect(() => {
     let prevScrollY = window.scrollY;
@@ -31,31 +29,18 @@ const Navbar: React.FC = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Check if scrolling up, even from a non-zero position
-      if (currentScrollY < prevScrollY && currentScrollY > 0) {
-        setScrolled(true); // Make navbar visible
+      if (currentScrollY > prevScrollY) {
+        setScrolled(false);
+      } else if (currentScrollY < prevScrollY || currentScrollY === 0) {
+        setScrolled(true);
       }
 
-      // Update the previous scrollY position
       prevScrollY = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll);
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleUpScroll = () => {
-      // Check if scrolling up, even from a non-zero position
-      if (window.scrollY < 50) {
-        setScrolled(false); // Make navbar invisible when at the top
-      }
-    };
-
-    window.addEventListener('scroll', handleUpScroll);
-
-    return () => window.removeEventListener('scroll', handleUpScroll);
   }, []);
 
   const handleToggleClick = () => {
@@ -69,10 +54,10 @@ const Navbar: React.FC = () => {
   return (
     <div className="mb-[100px]">
       <div
-        className={`${styles.paddingX} w-full fixed top-0 z-20 transition-all duration-500 ease-in-out
-          ${scrolled ? '-translate-y-full' : ''}`}
+        className={`bg-black w-full fixed top-0 z-20  transition-all duration-500 ease-in-out
+          ${scrolled ? '' : '-translate-y-full'}`}
       >
-        <div className="w-full flex justify-between items-center max-w-full mx-auto border-4 border-gray-400 bg-white p-4 pt-5 rounded-xl">
+        <div className="max-w-[94%] mx-auto flex justify-between items-center  bg-trnspirent p-4">
           <Link
             href="/"
             passHref
@@ -82,29 +67,28 @@ const Navbar: React.FC = () => {
               window.scrollTo(0, 0);
             }}
           >
-            
-            <p className="bg-white text-[18px] font-bold cursor-pointer flex ">
+            <p className="text-white text-[18px] font-bold cursor-pointer flex ">
               Hackers Path 
             </p>
           </Link>
 
-          <ul className="list-none hidden sm:flex flex-row gap-10 bg-white">
+          <ul className="list-none hidden sm:flex flex-row gap-10 text-white">
             {navLinks.map((nav) => (
               <li
                 key={nav.id}
                 className={`${
                   active === nav.title ? 'text-teal-400' : 'text-secondary'
-                } hover:text-teal-400 bg-white text-[18px] font-medium cursor-pointer pt-1`}
+                } hover:text-teal-400 text-white text-[18px] font-medium cursor-pointer pt-1`}
                 onClick={() => setActive(nav.title)}
               >
-                <Link href={"/"+nav.id}>
-                  <p className='bg-white'>{nav.title}</p>
+                <Link href={"/" + nav.id}>
+                  <p className="text-white">{nav.title}</p>
                 </Link>
               </li>
             ))}
-            <li className='bg-white'>
-              <Link className='inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-teal-400 hover:bg-pink-500 focus:shadow-outline focus:outline-none' href="/contact">
-                  Schedule a Call
+            <li className="text-white">
+              <Link className="inline-flex items-center justify-center h-9 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-teal-400 hover:bg-pink-500 focus:shadow-outline focus:outline-none" href="/contact">
+                Schedule a Call
               </Link>
             </li>
           </ul>
@@ -115,7 +99,7 @@ const Navbar: React.FC = () => {
               height={25}
               src={toggle ? 'https://www.svgrepo.com/show/500512/close-bold.svg' : 'https://www.svgrepo.com/show/532195/menu.svg'}
               alt="menu"
-              className="w-[28px] h-[28px] object-contain cursor-pointer "
+              className="w-[28px] h-[28px] object-contain cursor-pointer"
               onClick={handleToggleClick}
             />
 
