@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
-import { styles } from './style';
+import { useSelector } from 'react-redux';
 import Image from 'next/image';
 import Link from 'next/link';
+import ProfileMenu from './ProfileMenu';
+import { Button } from '@material-tailwind/react';
+import { AuthWrapper } from '../AuthWrapper';
 
 const navLinks = [
   {
@@ -12,16 +15,15 @@ const navLinks = [
     id: 'learn',
     title: 'Learn',
   },
-  {
-    id: 'login',
-    title: 'Login',
-  },
 ];
 
 const Navbar: React.FC = () => {
   const [active, setActive] = useState('');
   const [toggle, setToggle] = useState(false);
-  const [scrolled, setScrolled] = useState(true); 
+  const [scrolled, setScrolled] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const { currentUser } = useSelector((state) => state.user);  
 
   useEffect(() => {
     let prevScrollY = window.scrollY;
@@ -40,6 +42,10 @@ const Navbar: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll);
 
+    // Check authentication status
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -54,10 +60,10 @@ const Navbar: React.FC = () => {
   return (
     <div className="mb-[100px]">
       <div
-        className={`bg-black w-full fixed top-0 z-20  transition-all duration-500 ease-in-out
-          ${scrolled ? '' : '-translate-y-full'}`}
+        className={`bg-black w-full fixed top-0 z-20 transition-all duration-500 ease-in-out ${scrolled ? '' : '-translate-y-full'
+          }`}
       >
-        <div className="max-w-[94%] mx-auto flex justify-between items-center  bg-trnspirent p-4">
+        <div className="max-w-[94%] mx-auto flex justify-between items-center bg-transparent p-4">
           <Link
             href="/"
             passHref
@@ -68,7 +74,7 @@ const Navbar: React.FC = () => {
             }}
           >
             <p className="text-white text-[18px] font-bold cursor-pointer flex ">
-              Hackers Path 
+              Hackers Path
             </p>
           </Link>
 
@@ -76,9 +82,8 @@ const Navbar: React.FC = () => {
             {navLinks.map((nav) => (
               <li
                 key={nav.id}
-                className={`${
-                  active === nav.title ? 'text-teal-400' : 'text-secondary'
-                } hover:text-teal-400 text-white text-[18px] font-medium cursor-pointer pt-1`}
+                className={`${active === nav.title ? 'text-teal-400' : 'text-secondary'
+                  } hover:text-teal-400 text-white text-[18px] font-medium cursor-pointer pt-1`}
                 onClick={() => setActive(nav.title)}
               >
                 <Link href={"/" + nav.id}>
@@ -87,13 +92,7 @@ const Navbar: React.FC = () => {
               </li>
             ))}
             <li className="text-white">
-              <Link className="inline-flex items-center justify-center h-9 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-teal-400 hover:bg-pink-500 focus:shadow-outline focus:outline-none" href="/contact">
-                Schedule a Call
-              </Link>
-            </li>
-          </ul>
-
-          <div className="sm:hidden flex flex-1 justify-end items-center ">
+            <div className="sm:hidden flex flex-1 justify-end items-center">
             <Image
               width={25}
               height={25}
@@ -111,17 +110,15 @@ const Navbar: React.FC = () => {
             )}
 
             <div
-              className={`${
-                !toggle ? 'hidden' : 'flex'
-              } p-6 bg-gray-200 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl animate-fadeIn`}
+              className={`${!toggle ? 'hidden' : 'flex'
+                } p-6 bg-gray-200 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl animate-fadeIn`}
             >
               <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
                 {navLinks.map((nav) => (
                   <li
                     key={nav.id}
-                    className={`font-poppins font-medium cursor-pointer text-[16px] ${
-                      active === nav.title ? 'text-white' : 'text-secondary'
-                    } animate-slideIn`}
+                    className={`font-poppins font-medium cursor-pointer text-[16px] ${active === nav.title ? 'text-white' : 'text-secondary'
+                      } animate-slideIn`}
                     onClick={() => {
                       setToggle(!toggle);
                       setActive(nav.title);
@@ -142,6 +139,21 @@ const Navbar: React.FC = () => {
               </ul>
             </div>
           </div>
+
+          <div className="hidden sm:flex flex-1 justify-end items-center">
+            {isAuthenticated ? (
+              // <ProfileMenu />
+              <p>Profile</p>
+            ) : (
+              <Link href="/login">
+                <Button variant="gradient" size="sm">Sign in</Button>
+              </Link>
+            )}
+          </div>
+            </li>
+          </ul>
+
+          
         </div>
       </div>
     </div>
