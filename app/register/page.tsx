@@ -8,9 +8,10 @@ const Register: React.FC = () => {
         <div className="flex justify-center px-6 my-12">
           <div className="w-full xl:w-3/4 lg:w-11/12 flex">
             <div
-              className="mr- w-full h-auto bg-black hidden lg:block lg:w-6/12 bg-cover rounded-l-lg"
-              style={{ backgroundImage: "url('https://source.unsplash.com/5hBREM-5mnQ/1010x1100')" }}
+              className="w-full lg:w-6/12 h-full lg:block hidden bg-black bg-cover bg-center rounded-l-lg"
+              style={{ backgroundImage: "url('https://i.ibb.co/KL5jsHV/register.jpg')" }}
             ></div>
+
             <div className="w-full lg:w-7/12 bg-black p-5 rounded-lg lg:rounded-l-none">
               <h3 className="pt-4 text-2xl text-center text-green-300">Create an Account!</h3>
               <form className="px-8 pt-6 pb-8 mb-4 bg-black rounded">

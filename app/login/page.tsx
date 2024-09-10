@@ -58,10 +58,11 @@ const Login: React.FC = () => {
                 <div className="flex justify-center px-6 my-12">
                     <div className="w-full xl:w-3/4 lg:w-11/12 flex">
                         <div
-                            className="w-full h-auto bg-black hidden lg:block lg:w-2/4 bg-cover rounded-l-lg"
-                            style={{ backgroundImage: `url(https://source.unsplash.com/RChZT-JlI9g/1010x900)` }}
+                            className="w-full lg:w-6/12 h-full lg:block hidden bg-black bg-cover bg-center rounded-l-lg"
+                            style={{ backgroundImage: `url(https://i.ibb.co/9GrGcQf/login.jpg)` }}
                         ></div>
-                        <div className="w-full lg:w-1/2 bg-black p-5 rounded-lg lg:rounded-l-none">
+
+                        <div className="w-full lg:w-7/12 bg-black p-5 rounded-lg lg:rounded-l-none">
                             <h3 className="pt-4 text-2xl text-center">Welcome Back!</h3>
                             <form className="px-8 pt-6 pb-8 mb-4 bg-black rounded">
                                 <div className="mb-4">
@@ -148,7 +149,7 @@ const Login: React.FC = () => {
                             <div className="text-sm font-medium ml-3">Success Login.</div>
                         </div>
                         <div className="text-sm tracking-wide text-green-500 mt-4 sm:mt-0 sm:ml-4">Your Login was Successful. You can use our services!</div>
-                        
+
                     </div>
                 </div>
             )}
@@ -157,24 +158,24 @@ const Login: React.FC = () => {
                 <div className="fixed bottom-4 right-4 sm:w-80">
                     <div className="relative flex flex-col sm:flex-row sm:items-center border-2 border-red-500 shadow rounded-md py-5 pl-6 pr-8 sm:pr-6">
                         <div className="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
-                        <div
-                            className="text-red-500 hover:text-red-800 cursor-pointer"
-                            onClick={() => setErrorMessageVisible(false)}
-                        >
-                            <svg
-                                className="w-6 sm:w-5 h-6 sm:h-5"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
+                            <div
+                                className="text-red-500 hover:text-red-800 cursor-pointer"
+                                onClick={() => setErrorMessageVisible(false)}
                             >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </div>
+                                <svg
+                                    className="w-6 sm:w-5 h-6 sm:h-5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </div>
                             <div className="text-sm font-medium ml-3">Error Login.</div>
                         </div>
                         <div className="text-sm tracking-wide text-red-500 mt-4 sm:mt-0 sm:ml-4">Your Login was Unsuccessful. Please try again!</div>
-                        
+
                     </div>
                 </div>
             )}

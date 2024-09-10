@@ -2,7 +2,7 @@
 
 module.exports = {
   images: {
-    domains: ['images.unsplash.com', "plus.unsplash.com"],
+    domains: ['images.unsplash.com', "plus.unsplash.com", "cdn-icons-png.flaticon.com"],
   },
   async rewrites() { 
     return [

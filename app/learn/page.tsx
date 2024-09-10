@@ -8,7 +8,6 @@ import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
 import Image from "next/image";
-import AuthWrapper from "../component/AuthWrapper";
 
 interface Module {
   _id: string;
@@ -89,7 +88,7 @@ const Read: React.FC = () => {
   }
 
   return (
-    <AuthWrapper>
+    <>
       <Navbar />
 
       {showConfetti && <Confetti width={width} height={height} />}
@@ -161,7 +160,7 @@ const Read: React.FC = () => {
       </div>
 
       <Footer />
-    </AuthWrapper>
+    </>
   );
 };
 
