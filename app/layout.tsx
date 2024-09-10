@@ -1,11 +1,12 @@
 "use client";
-import type { Metadata } from 'next';
+
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Provider } from 'react-redux';
 import { store } from './component/redux/store';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({
@@ -14,6 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -22,12 +24,12 @@ export default function RootLayout({
   }, []);
 
   useEffect(() => {
-    const protectedRoutes = ['/learn', '/learn/[id]', '/contact', '/resetpassword']; // Add other protected routes here
+    const protectedRoutes = ['/learn', '/resetpassword']; 
 
-    if (!isLoggedIn && protectedRoutes.includes(router.pathname)) {
-      router.push('/login'); // Redirect to login if not logged in
+    if (!isLoggedIn && (protectedRoutes.includes(pathname) || pathname.startsWith('/learn/'))) {
+      router.push('/login'); 
     }
-  }, [isLoggedIn, router]);
+  }, [isLoggedIn, pathname, router]);
 
   return (
     <html lang="en">
