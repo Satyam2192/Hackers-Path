@@ -103,7 +103,7 @@ const Login: React.FC = () => {
                                         type="button"
                                         onClick={handleLogin}
                                     >
-                                        Sign In
+                                        Log In
                                     </button>
                                 </div>
                                 <hr className="mb-6 border-t border-green-300" />

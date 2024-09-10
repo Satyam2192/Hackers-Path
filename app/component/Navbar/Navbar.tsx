@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const { currentUser } = useSelector((state) => state.user);  
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     let prevScrollY = window.scrollY;
@@ -92,68 +92,64 @@ const Navbar: React.FC = () => {
               </li>
             ))}
             <li className="text-white">
-            <div className="sm:hidden flex flex-1 justify-end items-center">
-            <Image
-              width={25}
-              height={25}
-              src={toggle ? 'https://www.svgrepo.com/show/500512/close-bold.svg' : 'https://www.svgrepo.com/show/532195/menu.svg'}
-              alt="menu"
-              className="w-[28px] h-[28px] object-contain cursor-pointer"
-              onClick={handleToggleClick}
-            />
+              <div className="sm:hidden flex flex-1 justify-end items-center">
+                <Image
+                  width={25}
+                  height={25}
+                  src={toggle ? 'https://www.svgrepo.com/show/500512/close-bold.svg' : 'https://www.svgrepo.com/show/532195/menu.svg'}
+                  alt="menu"
+                  className="w-[28px] h-[28px] object-contain cursor-pointer"
+                  onClick={handleToggleClick}
+                />
 
-            {toggle && (
-              <div
-                className="fixed top-0 left-0 w-full h-full bg-black opacity-50"
-                onClick={handleMenuClose}
-              ></div>
-            )}
+                {toggle && (
+                  <div
+                    className="fixed top-0 left-0 w-full h-full bg-black opacity-50"
+                    onClick={handleMenuClose}
+                  ></div>
+                )}
 
-            <div
-              className={`${!toggle ? 'hidden' : 'flex'
-                } p-6 bg-gray-200 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl animate-fadeIn`}
-            >
-              <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
-                {navLinks.map((nav) => (
-                  <li
-                    key={nav.id}
-                    className={`font-poppins font-medium cursor-pointer text-[16px] ${active === nav.title ? 'text-white' : 'text-secondary'
-                      } animate-slideIn`}
-                    onClick={() => {
-                      setToggle(!toggle);
-                      setActive(nav.title);
-                    }}
-                  >
-                    <Link href={`${nav.id}`}>
-                      <p>{nav.title}</p>
-                    </Link>
-                  </li>
-                ))}
-                <li>
-                  <Link href="/contact">
-                    <p className="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-teal-400 hover:bg-pink-500 focus:shadow-outline focus:outline-none">
-                      Schedule a Call
-                    </p>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+                <div
+                  className={`${!toggle ? 'hidden' : 'flex'
+                    } p-6 bg-gray-200 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl animate-fadeIn`}
+                >
+                  <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
+                    {navLinks.map((nav) => (
+                      <li
+                        key={nav.id}
+                        className={`font-poppins font-medium cursor-pointer text-[16px] ${active === nav.title ? 'text-white' : 'text-secondary'
+                          } animate-slideIn`}
+                        onClick={() => {
+                          setToggle(!toggle);
+                          setActive(nav.title);
+                        }}
+                      >
+                        <Link href={`${nav.id}`}>
+                          <p>{nav.title}</p>
+                        </Link>
+                      </li>
+                    ))}
+                    <li>
+                      <div className="hidden sm:flex flex-1 justify-end items-center">
+                        {isAuthenticated ? (
+                          // <ProfileMenu />
+                          <p>Profile</p>
+                        ) : (
+                          <Link href="/login">
+                            <Button variant="gradient" size="sm">Sign in</Button>
+                          </Link>
+                        )}
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
 
-          <div className="hidden sm:flex flex-1 justify-end items-center">
-            {isAuthenticated ? (
-              // <ProfileMenu />
-              <p>Profile</p>
-            ) : (
-              <Link href="/login">
-                <Button variant="gradient" size="sm">Sign in</Button>
-              </Link>
-            )}
-          </div>
+
             </li>
           </ul>
 
-          
+
         </div>
       </div>
     </div>

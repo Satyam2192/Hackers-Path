@@ -27,16 +27,15 @@ function HeroParallaxDemo() {
     try {
       const response = await fetch("https://sk-hackers-path.onrender.com/api/v1/modules");
       const data = await response.json();
-      setModuleData(data.modules || []); 
+      setModuleData(data.modules || []);
     } catch (error) {
       console.error("Error fetching module data:", error);
     } finally {
       setLoading(false);
     }
   }, []);
-  
 
-  // Memoize the showConfettiHandler to prevent unnecessary re-creations
+
   const showConfettiHandler = useCallback(() => {
     setShowConfetti(true);
     setTimeout(() => {
@@ -48,7 +47,6 @@ function HeroParallaxDemo() {
     fetchModuleData();
   }, [fetchModuleData]);
 
-  // Memoize the modulesToProducts transformation
   const modulesToProducts = useMemo(() => moduleData.map((module) => ({
     title: module.title,
     link: `/learn/${module._id}`,
@@ -67,9 +65,7 @@ function HeroParallaxDemo() {
     <>
       <Navbar />
       <HeroParallax products={modulesToProducts} />
-      <button onClick={handleButtonClick}>Celebrate!</button>
       <Footer />
-      {showConfetti && <Confetti width={width} height={height} />}
     </>
   );
 }
