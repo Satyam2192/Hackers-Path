@@ -1,7 +1,90 @@
+"use client"
+import React, { useState } from 'react';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import SuccessMessage from '../component/SuccessMessage';
+import ErrorMessage from '../component/ErrorMessage';
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  c_password: string;
+}
 
 const Register: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    c_password: '',
+  });
+  const [isSuccessMessageVisible, setSuccessMessageVisible] = useState(false);
+  const [isErrorMessageVisible, setErrorMessageVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const router = useRouter();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [id]: value
+    }));
+  };
+
+  const validateForm = (): boolean => {
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.c_password) {
+      setErrorMessage('All fields are required');
+      return false;
+    }
+    if (formData.password !== formData.c_password) {
+      setErrorMessage('Passwords do not match');
+      return false;
+    }
+    return true;
+  };
+
+  const handleRegister = async () => {
+    if (!validateForm()) {
+      setErrorMessageVisible(true);
+      return;
+    }
+
+    try {
+      const response = await fetch('https://sk-hackers-path.onrender.com/api/v1/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: `${formData.firstName} ${formData.lastName}`,
+          username: formData.email,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSuccessMessageVisible(true);
+        setTimeout(() => {
+          router.push('/login');
+        }, 900);
+      } else {
+        setErrorMessage(data.message || 'Registration failed');
+        setErrorMessageVisible(true);
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      setErrorMessage('An error occurred during registration');
+      setErrorMessageVisible(true);
+    }
+  };
+
   return (
     <body className="font-mono bg-black text-green-300">
       <div className="container mx-auto">
@@ -25,6 +108,8 @@ const Register: React.FC = () => {
                       id="firstName"
                       type="text"
                       placeholder="First Name"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="md:ml-2">
@@ -36,6 +121,8 @@ const Register: React.FC = () => {
                       id="lastName"
                       type="text"
                       placeholder="Last Name"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
                     />
                   </div>
                 </div>
@@ -48,6 +135,8 @@ const Register: React.FC = () => {
                     id="email"
                     type="email"
                     placeholder="Email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                   />
                 </div>
                 <div className="mb-4 md:flex md:justify-between">
@@ -56,12 +145,13 @@ const Register: React.FC = () => {
                       Password
                     </label>
                     <input
-                      className="w-full px-3 py-2 mb-3 text-sm leading-tight text-green-300 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                      className="w-full px-3 py-2 mb-3 text-sm leading-tight text-green-300 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       id="password"
                       type="password"
                       placeholder="******************"
+                      value={formData.password}
+                      onChange={handleInputChange}
                     />
-                    <p className="text-xs italic text-red-500">Please choose a password.</p>
                   </div>
                   <div className="md:ml-2">
                     <label className="block mb-2 text-sm font-bold text-green-300" htmlFor="c_password">
@@ -72,6 +162,8 @@ const Register: React.FC = () => {
                       id="c_password"
                       type="password"
                       placeholder="******************"
+                      value={formData.c_password}
+                      onChange={handleInputChange}
                     />
                   </div>
                 </div>
@@ -79,19 +171,12 @@ const Register: React.FC = () => {
                   <button
                     className="w-full px-4 py-2 font-bold text-black bg-green-300 rounded-full hover:bg-green-500 focus:outline-none focus:shadow-outline"
                     type="button"
+                    onClick={handleRegister}
                   >
                     Register Account
                   </button>
                 </div>
                 <hr className="mb-6 border-t border-green-300" />
-                {/* <div className="text-center">
-                  <Link
-                    className="inline-block text-sm text-green-300 align-baseline hover:text-green-500"
-                    href="#"
-                  >
-                    Forgot Password?
-                  </Link>
-                </div> */}
                 <div className="text-center">
                   <Link
                     className="inline-block text-sm text-green-300 align-baseline hover:text-green-500"
@@ -105,6 +190,17 @@ const Register: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {isSuccessMessageVisible && (
+        <SuccessMessage message="Registration successful! Redirecting to login..." />
+      )}
+      
+      {isErrorMessageVisible && (
+        <ErrorMessage 
+          message={errorMessage}
+          onClose={() => setErrorMessageVisible(false)}
+        />
+      )}
     </body>
   );
 };
