@@ -1,7 +1,7 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
+import React, { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import SuccessMessage from "../component/SuccessMessage";
 import ErrorMessage from "../component/ErrorMessage";
 
@@ -12,14 +12,17 @@ interface FormData {
 
 const Login: React.FC = () => {
     const [formData, setFormData] = useState<FormData>({
-        email: 'guest@gmail.com',  
-        password: '1234',               
+        email: 'guest@gmail.com',
+        password: '1234',
     });
     const [isSuccessMessageVisible, setSuccessMessageVisible] = useState(false);
     const [isErrorMessageVisible, setErrorMessageVisible] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(''); // For custom error messages
-
+    const [errorMessage, setErrorMessage] = useState('');
     const router = useRouter();
+    const searchParams = useSearchParams();
+
+    // Get and decode redirect URL
+    const redirecturl = decodeURIComponent(searchParams.get('redirecturl') || '/');
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -46,7 +49,7 @@ const Login: React.FC = () => {
 
     const handleLogin = async () => {
         if (!validateForm()) return;
-
+    
         try {
             const response = await fetch('https://sk-hackers-path.onrender.com/api/v1/login', {
                 method: 'POST',
@@ -58,16 +61,16 @@ const Login: React.FC = () => {
                     password: formData.password,
                 }),
             });
-
+    
             const data = await response.json();
-
+    
             if (response.ok) {
-                // Login successful
+                localStorage.setItem('token', data.token); 
+    
                 setSuccessMessageVisible(true);
-                localStorage.setItem('token', data.token);
-
+    
                 setTimeout(() => {
-                    router.push('/learn');
+                    window.location.href = redirecturl || "/"; 
                 }, 900);
             } else {
                 // Login failed
@@ -80,7 +83,9 @@ const Login: React.FC = () => {
             setErrorMessageVisible(true);
         }
     };
+    
 
+    
     return (
         <body className="font-mono bg-black text-green-300">
             <div className="container mx-auto">
@@ -104,7 +109,7 @@ const Login: React.FC = () => {
                                         type="email"
                                         placeholder="Email"
                                         name="email"
-                                        value={formData.email}    // Pre-populated email
+                                        value={formData.email}    
                                         onChange={handleInputChange}
                                     />
                                 </div>
@@ -118,7 +123,7 @@ const Login: React.FC = () => {
                                         type="password"
                                         placeholder="******************"
                                         name="password"
-                                        value={formData.password}  // Pre-populated password
+                                        value={formData.password}  
                                         onChange={handleInputChange}
                                     />
                                 </div>
@@ -147,7 +152,7 @@ const Login: React.FC = () => {
             </div>
 
             {isSuccessMessageVisible && (
-                <SuccessMessage message="Your Login was Successful. You can use our services!" />
+                <SuccessMessage message="Your Login was Successful. You will be redirected!" />
             )}
 
             {isErrorMessageVisible && (
