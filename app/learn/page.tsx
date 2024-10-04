@@ -128,7 +128,7 @@ const Read: React.FC = () => {
                       </p>
                     </CardItem>
 
-                    <CardItem translateZ="100" className="w-full mt-4">
+                    <CardItem translateZ="100" className="w-full mt-4 justify-items-end">
 
                       <Image
                         src={module.image}

@@ -11,6 +11,10 @@ const navLinks = [
     id: 'learn',
     title: 'Learn',
   },
+  {
+    id: 'about',
+    title: 'About',
+  }
 ];
 
 const Navbar: React.FC = () => {
@@ -54,9 +58,8 @@ const Navbar: React.FC = () => {
   return (
     <div className="mb-[100px]">
       <div
-        className={`bg-black w-full fixed top-0 z-20 transition-all duration-500 ease-in-out ${
-          scrolled ? '' : '-translate-y-full'
-        }`}
+        className={`bg-black w-full fixed top-0 z-20 transition-all duration-500 ease-in-out ${scrolled ? '' : '-translate-y-full'
+          }`}
       >
         <div className="max-w-[94%] mx-auto flex justify-between items-center bg-transparent p-4">
           <Link
@@ -76,9 +79,8 @@ const Navbar: React.FC = () => {
             {navLinks.map((nav) => (
               <li
                 key={nav.id}
-                className={`${
-                  active === nav.title ? 'text-teal-400' : 'text-secondary'
-                } hover:text-teal-400 text-white text-[18px] font-medium cursor-pointer pt-1`}
+                className={`${active === nav.title ? 'text-teal-400' : 'text-secondary'
+                  } hover:text-teal-400 text-white text-[18px] font-medium cursor-pointer pt-1`}
                 onClick={() => setActive(nav.title)}
               >
                 <Link href={`/${nav.id}`}>
@@ -89,10 +91,12 @@ const Navbar: React.FC = () => {
             <li>
               <div className="hover:text-teal-400 text-white text-[18px] font-medium cursor-pointer pt-1 ">
                 {isAuthenticated ? (
-                  <p>Profile</p>
+                  <button className="w-[85px] bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 transition-colors duration-300">
+                    Profile
+                  </button>
                 ) : (
                   <Link href="/login">
-                    <button className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 transition-colors duration-300">
+                    <button className="w-[85px] bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gradient-to-r hover:from-cyan-600 hover:to-blue-600 transition-colors duration-300">
                       Sign in
                     </button>
                   </Link>
@@ -120,17 +124,15 @@ const Navbar: React.FC = () => {
             )}
 
             <div
-              className={`${
-                !toggle ? 'hidden' : 'flex'
-              } p-6 bg-gray-900 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl animate-fadeIn`}
+              className={`${!toggle ? 'hidden' : 'flex'
+                } p-6 bg-gray-900 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl animate-fadeIn`}
             >
               <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
                 {navLinks.map((nav) => (
                   <li
                     key={nav.id}
-                    className={`font-poppins font-medium cursor-pointer text-[16px] ${
-                      active === nav.title ? 'text-white' : 'text-white'
-                    } animate-slideIn`}
+                    className={`font-poppins font-medium cursor-pointer text-[16px] ${active === nav.title ? 'text-white' : 'text-white'
+                      } animate-slideIn`}
                     onClick={() => {
                       setToggle(!toggle);
                       setActive(nav.title);

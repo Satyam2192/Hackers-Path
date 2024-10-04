@@ -61,7 +61,6 @@ const ProductCard = React.memo(({
             width={600}
             className="object-cover object-left-top absolute h-full w-full inset-0"
             alt={product.title}
-            loading="lazy"
           />
         )}
       </Link>
