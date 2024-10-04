@@ -1,14 +1,9 @@
 "use client";
 
-import { Inter } from 'next/font/google';
 import './globals.css';
 import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { Provider } from 'react-redux';
-import { store } from './component/redux/store';
-import Navbar from "@/app/component/Navbar/Navbar";
-import Footer from "@/app/component/Footer";
-const inter = Inter({ subsets: ['latin'] });
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     const router = useRouter();
@@ -19,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     useEffect(() => {
         const token = localStorage.getItem('token');
         setIsLoggedIn(!!token);
-        setIsCheckingAuth(false); // Stop checking once we have the token status
+        setIsCheckingAuth(false); 
     }, []);
 
     useEffect(() => {
@@ -35,11 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
     return (
         <html lang="en">
-            <body className={inter.className}>
-                <Provider store={store}>
-                    {children}
-                </Provider>
-            </body>
+            {children}
         </html>
     );
 }
