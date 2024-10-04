@@ -1,9 +1,10 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import SuccessMessage from "../component/SuccessMessage";
 import ErrorMessage from "../component/ErrorMessage";
+import Loader from '../component/Loader';
 
 interface FormData {
     email: string;
@@ -21,7 +22,6 @@ const Login: React.FC = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    // Get and decode redirect URL
     const redirecturl = decodeURIComponent(searchParams.get('redirecturl') || '/');
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,14 +66,12 @@ const Login: React.FC = () => {
     
             if (response.ok) {
                 localStorage.setItem('token', data.token); 
-    
                 setSuccessMessageVisible(true);
     
                 setTimeout(() => {
                     window.location.href = redirecturl || "/"; 
                 }, 900);
             } else {
-                // Login failed
                 setErrorMessage(data.message || 'Login failed.');
                 setErrorMessageVisible(true);
             }
@@ -83,9 +81,7 @@ const Login: React.FC = () => {
             setErrorMessageVisible(true);
         }
     };
-    
 
-    
     return (
         <body className="font-mono bg-black text-green-300">
             <div className="container mx-auto">
@@ -165,4 +161,10 @@ const Login: React.FC = () => {
     );
 };
 
-export default Login;
+const WrappedLogin: React.FC = () => (
+    <Suspense fallback={<Loader />}>
+        <Login />
+    </Suspense>
+);
+
+export default WrappedLogin;
